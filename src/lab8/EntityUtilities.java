@@ -12,7 +12,7 @@ public class EntityUtilities {
         if(e1==null || e2==null)
             return Double.MAX_VALUE;
         // TODO: Complete / Fix this!
-        return 0;
+        return Math.sqrt(Math.pow(e2.getX()-e1.getX(), 2) + Math.pow(e2.getY()-e1.getY(), 2));
     }
 
     /**
@@ -22,8 +22,8 @@ public class EntityUtilities {
      * @return true if the two entities are considered to be "touching", false otherwise
      */
     public static boolean areTouching(Entity e1, Entity e2) {
-        if(e1==null || e2==null)
-            return false;
+        if(e1.getRadius()>=distanceBetween(e1, e2) || e2.getRadius()>=distanceBetween(e1, e2))
+            return true;
         // TODO: Complete / Fix this! (hint: Use method the above)
         return false;
     }

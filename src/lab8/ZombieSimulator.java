@@ -10,14 +10,28 @@ public class ZombieSimulator {
     public static final int NONZOMBIE = 2;
 
     // TODO: Complete JavaDoc
+
+    /**
+     * Reads in a file and returns a list with filled with zombie and/or nonzombie object
+     * @param fileName
+     * @return list of entities
+     */
     public static List<Entity> readEntities(String fileName) {
         In inputFile = new In(fileName);
         int n = inputFile.readInt();
         LinkedList<Entity> list = new LinkedList<Entity>();  // This line provided! / DONE
         // TODO: Complete implementation
-
-
-
+        for(int i = 0; i<n; ++i){
+            int type = inputFile.readInt();
+            double x = inputFile.readDouble();
+            double y = inputFile.readDouble();
+            if(type == ZOMBIE){
+                list.add(new Zombie(x, y));
+            }
+            if(type == NONZOMBIE){
+                list.add(new Nonzombie(x, y));
+            }
+        }
         return list;
     }
 
@@ -34,13 +48,21 @@ public class ZombieSimulator {
         StdDraw.show();
     }
 
+    /**
+     * Sees if there's any nonzombies
+     * @param entities
+     * @return true if there's nonzombies, false if there isn't
+     */
     // TODO: JavaDoc
     // TODO: Complete this function. It should return true if there is at least one remaining non-zombie and false otherwise
     public static boolean nonzombiesRemain(List<Entity> entities) {
         // TODO:
         //      (Suggestion: Use the for-each style of loop shown in drawEntities()!)
-
-
+        for(Entity e: entities){
+            if(!e.isZombie()){
+                return true;
+            }
+        }
         return false;
     }
 
@@ -54,9 +76,10 @@ public class ZombieSimulator {
         for(Entity e: entities) {                        // This line done / provided
 
             // TODO: Update the entity e. Add the updated value to the new list as needed
-
-
-
+            Entity checker = e.updateEntity(entities);
+            if(checker!=null){
+                newList.add(checker);
+            }
         }
         return newList;  // This line done / provided
     }
